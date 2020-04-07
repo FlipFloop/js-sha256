@@ -10,7 +10,7 @@
 (function () {
   'use strict';
 
-  var ERROR = 'input is invalid type';
+  const ERROR = 'input is invalid type';
   var WINDOW = typeof window === 'object';
   var root = WINDOW ? window : {};
   if (root.JS_SHA256_NO_WINDOW) {
@@ -39,7 +39,7 @@
     0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
     0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
   ];
-  var OUTPUT_TYPES = ['hex', 'array', 'digest', 'arrayBuffer'];
+  const OUTPUT_TYPES = ['hex', 'array', 'digest', 'arrayBuffer'];
 
   var blocks = [];
 
@@ -79,11 +79,11 @@
     return method;
   };
 
-  var nodeWrap = function (method, is224) {
+  function nodeWrap (method, is224) {
     var crypto = eval("require('crypto')");
     var Buffer = eval("require('buffer').Buffer");
     var algorithm = is224 ? 'sha224' : 'sha256';
-    var nodeMethod = function (message) {
+    function nodeMethod (message) {
       if (typeof message === 'string') {
         return crypto.createHash(algorithm).update(message, 'utf8').digest('hex');
       } else {
@@ -412,7 +412,7 @@
     this.finalize();
 
     var buffer = new ArrayBuffer(this.is224 ? 28 : 32);
-    var dataView = new DataView(buffer);
+    const dataView = new DataView(buffer);
     dataView.setUint32(0, this.h0);
     dataView.setUint32(4, this.h1);
     dataView.setUint32(8, this.h2);
